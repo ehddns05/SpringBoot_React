@@ -1,4 +1,4 @@
-#### MVVM 패턴( Model-View-ViewModel )
+# MVVM 패턴( Model-View-ViewModel )
 
 * 로직과 UI의 분리를 위해 설계된 패턴  
   

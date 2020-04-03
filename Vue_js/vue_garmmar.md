@@ -1,4 +1,4 @@
-#### Vue.js 문법
+# Vue.js 문법
 
 1. 기본 형태
 
@@ -25,6 +25,7 @@
   </body>
 </html>
 ````
+#  
 
 2. Vue Instance
 
@@ -55,8 +56,57 @@
     });
 </script>
 ````
+#   
+  
 
-3. 
+3. Vue Components  
+
+```
+<div id="app">
+  <my-component></my-component>
+</div>
+```
+
+
+ * 로컬 컴포넌트
+```
+new Vue({
+  el: "#app",
+  components: {
+    // '컴포넌트 이름': 컴포넌트 내용
+    "my-component": {
+      template: "<div>A custom component!</div>"
+    }
+  }
+});
+````
+
+
+ * 전역 컴포넌트 
+```
+Vue.component('my-component', {
+  // 옵션
+})
+```
+　　
+
+ * props
+```
+Vue.component('child', {
+  // props 정의
+  props: ['message'],
+  // 데이터와 마찬가지로 prop은 템플릿 내부에서 사용할 수 있으며
+  // vm의 this.message로 사용할 수 있습니다.
+  template: '<span>{{ message }}</span>'
+})
+```
+⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩⇩
+```
+<child message="안녕하세요!"></child>
+```
+
+
+
 
 #  
  참조 사이트 

@@ -1,26 +1,40 @@
- <div id="test">
+<div id="test">
 
     <input type="text" v-model="text" /><br/>
         {{text}}
 
-    <ul>
-        <template v-for="item in items">
+    <template v-for="item in items">
+        <ul>
             <li>
                 {{item.id}}
             </li> 
             <li>
-                //태그의 attribute에 값 대입시
+                <!-- 태그의 attribute에 값 대입시 -->
                 <img :src="item.photo">
             </li>
-        </template>
-    </ul>
+        </ul>
+    </template>
 
+    <!-- attribute관련 예제 -->
     <div :style="[style, fontstyle]">
         z
     </div>
-      
+    
+    <!-- event, methods관련 예제 -->
+    <button @click="plus"> add </button>
+        {{num}}
+    <br/>
+
+    <input type="text" @keyup.enter="keyUP"/>
+    <br/>
+
+    <!-- class관련 예제 -->
+    <button @click="btnOn">toggle</button>
+    <div :class="[dropdown, toggle]">
+        <ul>Toggle Test</ul>
+    </div>
 </div>
-      
+     
       
 <script>
     new Vue({
@@ -36,8 +50,35 @@
                 }],
               
                 style : {background : 'red'},
-                fontstyle : {fontSize : '50px'} 
+                fontstyle : {fontSize : '50px'},
+                num : 1,
+                dropdown : "dropdown",
+                toggle : {
+                    on : "false"
+                } 
+            }
+        },
+        methods : 
+            {
+            plus(){
+                this.num += 1;
+            },
+            keyUP(ev){
+                
+                this.num -= 1;
+                
+            },
+            btnOn(){
+                this.toggle.on = !this.toggle.on;
             }
         }
     })
 </script>
+<style>
+    .dropdown ul{
+        display : none;
+    }
+    .dropdown.on ul{
+        display : block;
+    }
+</style>
