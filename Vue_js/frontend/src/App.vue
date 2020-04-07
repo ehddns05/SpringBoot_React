@@ -4,6 +4,7 @@
     <!-- <router-view/> -->
     <div class="col-md-6 offset-md-3">
       <div class="container">
+        <Navi></Navi>
         <h2 class="text-center mb-4">Todo</h2>
 
         <input type="text" class="form-control mb-4" v-model="userInput" @keyup.enter="addNewTodo">

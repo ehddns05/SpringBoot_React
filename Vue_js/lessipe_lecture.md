@@ -100,7 +100,7 @@ attribute가 배열 형태로 받을시 안되는 것 같다. :bow:
 
  #   
 
-  ##  methods , Event , computed
+  ##  methods , Event
 
 * **methods**
 ```
@@ -135,12 +135,25 @@ methods : {
 ※Enter 누를시 keyUP발동
 ```
 <input type="text" @keyup.enter="keyUP"/>
-```  
+```    
+
+<------->
 
 * **computed**  
   getter메서드 처럼 사용 가능!
 
+* **props**  
+  부모 컴포넌트에서 자식 컴포넌트로의 값 전달
+
+* **$emit**  
+  자식컴포넌트가 부모에게 신호 (값의 변화)를 보내는 것 
+
+* **mixin**  
+  여러 컴포넌트에서 불러와 재사용할 수 있는 기능 
+  
+
  #   
+ 
 
   ##  component  
   반복되는 태그 묶음을 손쉽게 사용할 수 있다.
@@ -163,6 +176,11 @@ Vue.component('tagName',{
   inputValue="Value">
 </tagName>
 ```  
+
+ #   
+
+  ##  eventBus
+  *    
 
 
  #   
