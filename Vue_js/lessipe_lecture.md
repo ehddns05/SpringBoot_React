@@ -195,7 +195,18 @@ Vue.component('tagName',{
   * main.js : webpack이 파일을 읽어들일 시작지점  
 
 **-- package.json**
+node_modules에서 설치해야 할 내역을 적어두는 파일
  * scripts  
    *  serve : 로컬 웹서버를 돌려 코드를 실시간 확인할수 있게 하는 스크립트
    *  build : 개발 완료후 서버에 올릴 파일들을 생성하는 스크립트
    *  lint : 스크립트 문법 체크
+  
+
+**-- XXX.vue**  
+
+※ javascript태그의 export default는 ECMAScript 6의 모듈 추출 방식
+```
+export default {
+
+}
+```
