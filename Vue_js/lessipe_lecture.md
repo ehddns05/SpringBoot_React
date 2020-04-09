@@ -220,6 +220,29 @@ export default {
 * lazyloading : 페이지를 읽어들일때(주소창 검색), 해당리소스 로딩을 추 후에 하는 기술  
 ※ SPA에서 일반적으로 시작할 때 전체를 읽어옴(속도 느림)
 
+* history모드 : 라우터의 기본 모드는 '해쉬모드'로써 해쉬태그 뒤의 주소를 인식하게 된다.  
+히스토리 모드에서는 해쉬태그 생략하고 사용 가능  
+http://localhost:8080/#/주소 => http://localhost:8080/주소
+
+* children  
+  하위 경로(컴포넌트)를 랜더링 할 수있다. 그러므로 중첩된 컴포넌트를 사용할 수 있다.   
+```
+const routes = [
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home,
+    children : [
+      {
+      path: '/login',
+      name: 'userDetail',
+      component: UsersDetail
+      }
+    ]
+  }
+```  
+즉, /home/login이 하위 경로로 컴포넌트를 불러올 수 있다.
+
  #   
 
   ##  Vuex  
@@ -227,3 +250,19 @@ export default {
   * 애플리케이션에 대한 상태 관리 패턴 + 라이브러리 
   * 모든 컴포넌트에 대한 **중앙 집중식 저장소** 역할  
   ex) 게임 속 창고는 어느 곳에서도 동일한 데이터를 가지고 있는것과 같다.
+
+  * store.js
+    *  state : vue의 data역할, 변수 등을 관리 
+    *  getters : computed의 역할을 수행, 공통 사용하는 로직 저장
+    *  Mapgetter : 사용하고자 하는 getters를 간단하게 컴포넌트로 불러주는 역할
+    *  mutation : 각각의 컴포넌트의 함수가 state를 변화시키지 않고 
+    같은 기능을 하는 함수를 mutation에서 만들어 놓고 각각의 *컴포넌트에서 실행(commit)*시켜 state의 값 변경  
+
+    => 각각의 컴포넌트에서 mutation에 저장된 함수를 commit 하여 state를 변화 시킨다.
+
+    ※ 문제점 : 모든 기능이 동기로 동작한다.
+
+    *  actions : 비동기 로직에서 사용(비지니스 로직 작성)
+    각각의 컴포넌트에서 actions를 사용하는 것은 dispatch라고 한다.  
+
+    => 각각의 컴포넌트 => action을 dispatch => actions에서 mutation을 commit => mutation이 state값을 변경

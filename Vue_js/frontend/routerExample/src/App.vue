@@ -21,6 +21,22 @@
             <v-list-item-title @click="$router.push({name : 'About'})">Contact</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item link>
+          <v-list-item-action>
+            <v-icon>mdi-contact-mail</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title @click="$router.push({
+              name : 'Users'
+              //params : {
+              //  id : 'dong'
+              //},
+              //query : {
+              //  group : 'VIP'
+              //}
+            })">Users</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -47,7 +63,7 @@
         >
           <v-col class="text-center">
             <v-tooltip left>
-              <template v-slot:activator="{ on }">
+              <!-- <template v-slot:activator="{ on }">
                 <v-btn
                   :href="source"
                   icon
@@ -57,7 +73,7 @@
                 >
                   <v-icon large>mdi-code-tags</v-icon>
                 </v-btn>
-              </template>
+              </template> -->
               <span>Source</span>
             </v-tooltip>
 
@@ -98,7 +114,7 @@ export default {
   },
 
   data: () => ({
-    //
+    // drawer: false
   }),
 };
 </script>
