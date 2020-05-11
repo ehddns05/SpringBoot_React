@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.demo.repository.BoardRepository">
+    <select id="findByBoard_num" parameterType="Integer" resultType="com.web.demo.model.Board" >
+        SELECT * from board where board_num = #{board_num}
+    </select>
+    <!-- <select id="login" parameterType="com.web.demo.model.User" resultType="Boolean">
+        SELECT id, password FROM user WHERE id = #{id} and password = #{password}
+    </select> -->
+</mapper>

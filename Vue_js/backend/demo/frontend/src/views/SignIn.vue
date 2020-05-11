@@ -49,7 +49,7 @@
 
 <script>
 import axios from 'axios'
-
+// import { mapMutations } from 'vuex'
 
 export default {
   data() {
@@ -63,6 +63,7 @@ export default {
     }
   },
   methods: {
+    // ...mapMutations({loginSuccess}),
     // resetForm () {
     //   this.errorMessages = []
     //   this.formHasErrors = false
@@ -84,8 +85,8 @@ export default {
       axios.post('/login', formData, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
       .then(response => {
         console.log(response);
-        console.log(response.data);
-        // $router.push({name:main})
+        this.$store.commit('loginSuccess');
+        this.$router.push({name:'Home'})
       })
       .catch(error =>{
         console.log(error);

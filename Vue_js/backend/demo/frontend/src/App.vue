@@ -17,8 +17,8 @@
           <v-list-item-action>
             <v-icon>mdi-contact-mail</v-icon>
           </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Contact</v-list-item-title>
+          <v-list-item-content @click="$router.push({name:'Board'})">
+            <v-list-item-title>board</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -32,7 +32,13 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>Application</v-toolbar-title>
       <v-spacer></v-spacer>
-      <div class="">
+      
+      <div class="" v-if="isLogin">
+        <v-btn text @click="$router.push({name : 'SignUp'})">
+          Logout
+        </v-btn>
+      </div>
+      <div class="" v-else>
         <v-btn text @click="$router.push({name : 'SignUp'})">
           sign-up
         </v-btn>
@@ -55,6 +61,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
   export default {
     props: {
       source: String,
@@ -62,5 +70,8 @@
     data: () => ({
       drawer: null,
     }),
+    computed: {
+      ...mapState(['isLogin'])
+    },
   }
 </script>
