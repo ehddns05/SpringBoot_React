@@ -18,7 +18,7 @@
           <td>{{ item.hits }}</td>
         </tr>
       </tbody>
-    <v-btn class="ma-2" outlined large fab color="indigo" style="float:right;" v-if="isLogin" @click="$router.push({name:'Board_writing_Page'})">
+    <v-btn class="ma-2" outlined large fab color="indigo" style="float:right;" v-if="authorization" @click="$router.push({name:'Board_writing_Page'})">
       <v-icon>mdi-pencil</v-icon>
     </v-btn>
     
@@ -49,7 +49,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(['isLogin','board']),
+        ...mapState(['authorization','board']),
         ...mapGetters(['get_board'])
     },
     mounted() {

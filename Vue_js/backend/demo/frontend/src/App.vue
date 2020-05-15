@@ -33,8 +33,8 @@
       <v-toolbar-title>Application</v-toolbar-title>
       <v-spacer></v-spacer>
       
-      <div class="" v-if="isLogin">
-        <v-btn text @click="$router.push({name : 'SignUp'})">
+      <div class="" v-if="authorization">
+        <v-btn text @click="logout()">
           Logout
         </v-btn>
       </div>
@@ -61,7 +61,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
+import axios from 'axios'
 
   export default {
     props: {
@@ -71,7 +72,20 @@ import { mapState } from 'vuex'
       drawer: null,
     }),
     computed: {
-      ...mapState(['isLogin'])
+      ...mapState(['authorization'])
+    },
+    methods: {
+      logout(){
+        axios.get('/logout')
+        .then(response => {
+          this.$store.commit('logout')
+          this.$router.go()
+        })
+        .catch(error =>{
+          console.log(error);
+        });
+        
+      }
     },
   }
 </script>

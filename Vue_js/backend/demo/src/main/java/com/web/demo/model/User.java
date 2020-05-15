@@ -19,8 +19,8 @@ public class User {
     @Column(name = "num")
     private long num;
 
-    @Column
-    private String id;
+    @Column(name = "id")
+    private String username;
 
     @Column
     private String name;
@@ -32,15 +32,15 @@ public class User {
     public User(){}
 
     @Builder
-    public User(String id, String password){
-        id = this.id;
+    public User(String username, String password){
+        username = this.username;
         password = this.password;
     }
 
     @Builder
-    public User(long num, String id, String password, String name, int age){
+    public User(long num, String username, String password, String name, int age){
         num = this.num;
-        id = this.id;
+        username = this.username;
         password = this.password;
         name = this.name;
         age = this.age;

@@ -27,23 +27,18 @@ public class MainService implements UserDetailsService{
     public void userMapper(User user){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        // mapper.enrollUser(user);
         mapper.save(user);
     }
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        Optional<User> userEntityWrapper = mapper.findById(id);
+        Optional<User> userEntityWrapper = mapper.findByUsername(id);
         User userEntity = userEntityWrapper.get();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        // if (("admin@example.com").equals(userEmail)) {
-        //     authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
-        // } else {
-            authorities.add(new SimpleGrantedAuthority(Role.User.getValue()));
-        // }
+        authorities.add(new SimpleGrantedAuthority(Role.User.getValue()));
 
-        return new org.springframework.security.core.userdetails.User(userEntity.getId(), userEntity.getPassword(), authorities);
+        return new org.springframework.security.core.userdetails.User(userEntity.getUsername(), userEntity.getPassword(), authorities);
     }
 }

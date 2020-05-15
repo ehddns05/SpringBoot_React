@@ -4,8 +4,11 @@ import axios from "axios";
 
 Vue.use(Vuex);
 
+const storage = window.sessionStorage;
+
 export default new Vuex.Store({
   state: {
+    authorization : false,
     isLogin: false,
     board : [
       {
@@ -19,14 +22,21 @@ export default new Vuex.Store({
   },
   mutations: {
     loginSuccess(state){
-      state.isLogin = true;
+      state.authorization = true;
     },
     set_board(state, board){
       console.log(state);
       console.log(board);
+    },
+    setHeader(){
+      axios.defaults.headers.common['Authorization'] = storage.getItem("authorization");
+    },
+    logout(){
+      storage.removeItem("authorization")
     }
   },
   actions: {
+    //board enroll
     save_board({commit}, board){
       console.log(board);
       axios.post('/user/save_board', board)
@@ -39,6 +49,13 @@ export default new Vuex.Store({
       .catch(error =>{
         console.log(error);
       });
+    },
+    login_Status({commit}){
+      let token = storage.getItem("authorization");
+      if(token != null){
+        commit('setHeader')
+        this.state.authorization = true;
+      }
     }
   },
   modules: {
@@ -56,6 +73,7 @@ export default new Vuex.Store({
       .catch(error =>{
         console.log(error);
       });
-    }
+    },
   }
+  
 });

@@ -5,9 +5,9 @@
         <v-card>
           <v-card-text>
             <v-text-field
-              ref="id"
-              v-model="id"
-              :rules="[() => !!id || 'This field is required']"
+              ref="username"
+              v-model="username"
+              :rules="[() => !!username || 'This field is required']"
               :error-messages="errorMessages"
               label="ID"
             ></v-text-field>
@@ -54,7 +54,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      id:null,
+      username:null,
       password:null,
       name:null,
       age:null,
@@ -80,11 +80,13 @@ export default {
     // },
     login(){
       let formData = new FormData();
-      formData.set("id", this.id);
+      formData.set("username", this.username);
       formData.set("password", this.password);
       axios.post('/login', formData, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
       .then(response => {
         console.log(response);
+        sessionStorage.setItem('authorization', response.headers.authorization)
+        axios.defaults.headers.common['Authorization'] = response.headers.authorization;
         this.$store.commit('loginSuccess');
         this.$router.push({name:'Home'})
       })
