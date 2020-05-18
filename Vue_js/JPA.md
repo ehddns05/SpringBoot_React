@@ -1,5 +1,5 @@
 ##  JPA 
- : java의 ERM표준으로 인터페이스의 모음이다.  
+ : java의 ORM표준으로 인터페이스의 모음이다.  
  jpa를 구현한 대표적인 구현체는 Hibernate, EclipseLink, DataNucleus이다.
 
 
