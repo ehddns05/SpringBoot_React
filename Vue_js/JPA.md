@@ -14,6 +14,15 @@
    * 저장 - entity.setName("name info")   
    * 저장 - jpa.remove(entity)
 
+---  
+### Error  
+
+case 1. ``JPA Unknown column 'xxx' in 'field list'``
+
+=> change column names to lower case in DB
+
+---  
+
 참조 사이트 
 
 >  https://gmlwjd9405.github.io/2019/08/04/what-is-jpa.html  
