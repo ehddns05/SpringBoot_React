@@ -1,0 +1,7 @@
+create table fileupload(
+    file_num int primary key auto_increment,
+    board_num int not null,
+    filename varchar(500) not null,
+    fileOriname varchar(500) not null,
+    fileurl varchar(500) not null
+);

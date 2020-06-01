@@ -37,14 +37,14 @@ export default new Vuex.Store({
   },
   actions: {
     //board enroll
-    save_board({commit}, board){
-      console.log(board);
-      axios.post('/user/save_board', board)
+    save_board({commit}, formData){
+      console.log(formData);
+      axios.post('/user/save_board', formData, {headers: {'Content-Type': 'application/json'}})
       .then(response => {
         console.log(response);
         commit('set_board', response);
         // this.$store.commit('loginSuccess');
-        // this.$router.push({name:'Home'})
+        this.$router.push({name:'Home'})
       })
       .catch(error =>{
         console.log(error);

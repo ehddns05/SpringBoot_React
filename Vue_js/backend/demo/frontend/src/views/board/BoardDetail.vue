@@ -47,6 +47,7 @@
               </p>
 
             </v-card-text>
+
           </v-card>
         
       </v-window>
@@ -55,6 +56,23 @@
   </v-row>
   <v-row align="baseline" justify="end">
       <v-col>
+        <!-- <v-hover
+          v-slot:default="{ hover }"
+        >
+          <v-card
+            :elevation="hover ? 16 : 2"
+            class="mx-auto"
+            height="100"
+            max-width="150"
+          >
+            <v-card-text class="font-weight-medium mt-12 text-center subtitle-1" @click="filedownload()">
+              attached file
+            </v-card-text>
+          </v-card>
+        </v-hover> -->
+        <v-btn class="ma-2" color="indigo" dark @click="filedownload()">
+          <v-icon dark>mdi-arrow-up-bold-box-outline</v-icon>
+        </v-btn>
         <div class="my-2">
             <v-btn small color="primary" align="right">Primary</v-btn>
         </div>
@@ -72,7 +90,8 @@ export default {
     data() {
         return {
             window:null,
-            board:null
+            board:null,
+            uploadfile:null
         }
     },
     computed: {
@@ -89,6 +108,32 @@ export default {
       .catch(error =>{
         console.log(error);
       });
+    },
+    methods: {
+      filedownload(){
+        axios.get('/board/filedownload?boardnum='+this.$route.params.boardnum, {
+        responseType: "blob",
+    } )
+      .then(response => {
+        console.log(response);
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+
+        const contentDisposition = response.headers['content-disposition']; // 파일 이름
+        var match = contentDisposition.match(/filename\s*=\s*"(.+)"/i);
+        var filename = match[1];
+        console.log(filename);
+
+        link.href = url;
+        link.setAttribute("download", filename);
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+      })
+      .catch(error =>{
+        console.log(error);
+      });
+      }
     },
 }
 </script>
