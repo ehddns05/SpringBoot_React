@@ -1,7 +1,29 @@
+//inquiry column info
+SHOW FULL COLUMNS FROM TABLE_NAME;
+
+
+
 create table fileupload(
     file_num int primary key auto_increment,
     board_num int not null,
     filename varchar(500) not null,
     fileOriname varchar(500) not null,
     fileurl varchar(500) not null
+);
+
+create table board(
+    board_num int primary key auto_increment,
+    board_title varchar(50) not null,
+    writer varchar(50) not null,
+    hits int,
+    date timestamp TIMESTAMP ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    context varchar(2000) not null
+);
+
+create table fileupload(
+    num int primary key auto_increment,
+    id varchar(30) not null,
+    name varchar(20) not null,
+    age int not null,
+    password varchar(100) not null
 );
