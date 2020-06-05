@@ -12,7 +12,7 @@ new Vue({
   store,
   vuetify,
   beforeCreate() {
-    this.$store.dispatch("login_Status")
+    this.$store.dispatch("login_Status");
   },
   render: h => h(App)
 }).$mount("#app");

@@ -48,19 +48,19 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 // import { mapMutations } from 'vuex'
 
 export default {
   data() {
     return {
-      username:null,
-      password:null,
-      name:null,
-      age:null,
-      errorMessages: '',
+      username: null,
+      password: null,
+      name: null,
+      age: null,
+      errorMessages: "",
       formHasErrors: false
-    }
+    };
   },
   methods: {
     // ...mapMutations({loginSuccess}),
@@ -78,34 +78,41 @@ export default {
     //     this.$refs[f].validate(true)
     //   })
     // },
-    login(){
+    login() {
       let formData = new FormData();
       formData.set("username", this.username);
       formData.set("password", this.password);
-      axios.post('/login', formData, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
-      .then(response => {
-        console.log(response);
-        sessionStorage.setItem('authorization', response.headers.authorization)
-        axios.defaults.headers.common['Authorization'] = response.headers.authorization;
-        this.$store.commit('loginSuccess');
-        this.$router.push({name:'Home'})
-      })
-      .catch(error =>{
-        console.log(error);
-      });
+      axios
+        .post("/login", formData, {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" }
+        })
+        .then(response => {
+          console.log(response);
+          sessionStorage.setItem(
+            "authorization",
+            response.headers.authorization
+          );
+          axios.defaults.headers.common["Authorization"] =
+            response.headers.authorization;
+          this.$store.commit("loginSuccess");
+          this.$router.push({ name: "Home" });
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
   computed: {
-    form () {
+    form() {
       return {
         name: this.name,
         address: this.address,
         city: this.city,
         state: this.state,
         zip: this.zip,
-        country: this.country,
-      }
+        country: this.country
+      };
     }
   }
-}
+};
 </script>

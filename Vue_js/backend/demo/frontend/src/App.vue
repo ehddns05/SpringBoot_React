@@ -60,32 +60,45 @@
   </v-app>
 </template>
 
-<script>
-import { mapState, mapMutations } from 'vuex'
-import axios from 'axios'
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import HelloWorld from "./components/HelloWorld.vue";
+import { mapState } from 'vuex';
+import axios from 'axios';
 
-  export default {
-    props: {
-      source: String,
-    },
-    data: () => ({
-      drawer: null,
-    }),
-    computed: {
-      ...mapState(['authorization'])
-    },
-    methods: {
-      logout(){
+@Component({
+  components: {
+    HelloWorld
+  },
+  methods: {
+    logout(){
         axios.get('/logout')
         .then(response => {
-          this.$store.commit('logout')
-          this.$router.go()
+          console.log(response.status);
+          this.$store.commit('logout');
+          this.$router.go(0);
         })
         .catch(error =>{
           console.log(error);
         });
-        
       }
-    },
+  },
+  computed :{
+    ...mapState(['authorization'])
   }
+})
+export default class App extends Vue {
+
+}
 </script>
+
+// <style lang="scss">
+// #app {
+//   font-family: Avenir, Helvetica, Arial, sans-serif;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+//   text-align: center;
+//   color: #2c3e50;
+//   margin-top: 60px;
+// }
+// </style>

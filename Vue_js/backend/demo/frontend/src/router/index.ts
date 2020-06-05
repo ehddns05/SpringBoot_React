@@ -25,22 +25,21 @@ const routes = [
   {
     path: "/main",
     name: "main",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Main.vue")
+    component: () => import(/* webpackChunkName: "about" */ "../views/Main.vue")
   },
   {
     path: "/board",
     name: "Board",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/board/Board.vue")
-      // children:[
-      //   {
-      //     path: '/BoardDetail',
-      //     name: 'BoardDetail',
-      //     component: () =>
-      //       import(/* webpackChunkName: "about" */ "../views/board/BoardDetail.vue")
-      //     }
-      // ]
+    // children:[
+    //   {
+    //     path: '/BoardDetail',
+    //     name: 'BoardDetail',
+    //     component: () =>
+    //       import(/* webpackChunkName: "about" */ "../views/board/BoardDetail.vue")
+    //     }
+    // ]
   },
   {
     path: "/user/board/writing_Page",
@@ -49,12 +48,11 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/board/Writing.vue")
   },
   {
-    path: '/BoardDetail:boardnum',
-    name: 'BoardDetail',
+    path: "/BoardDetail:boardnum",
+    name: "BoardDetail",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/board/BoardDetail.vue")
   }
-  
 ];
 
 const router = new VueRouter({

@@ -30,7 +30,6 @@
               :error-messages="errorMessages"
               label="Age"
             ></v-text-field>
-            
           </v-card-text>
           <v-divider class="mt-12"></v-divider>
           <v-card-actions>
@@ -63,19 +62,18 @@
 </template>
 
 <script>
-import axios from 'axios'
-
+import axios from "axios";
 
 export default {
   data() {
     return {
-      username:null,
-      password:null,
-      name:null,
-      age:null,
-      errorMessages: '',
+      username: null,
+      password: null,
+      name: null,
+      age: null,
+      errorMessages: "",
       formHasErrors: false
-    }
+    };
   },
   methods: {
     // resetForm () {
@@ -92,20 +90,21 @@ export default {
     //     this.$refs[f].validate(true)
     //   })
     // },
-    signup(){
-      axios.post('/signup', {
-        username: this.username,
-        password: this.password,
-        name: this.name,
-        age: this.age
-      })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error =>{
-        console.log(error);
-      });
+    signup() {
+      axios
+        .post("/signup", {
+          username: this.username,
+          password: this.password,
+          name: this.name,
+          age: this.age
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
-}
+};
 </script>
