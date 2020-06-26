@@ -4,6 +4,8 @@ import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
+const schedule = () => import("../views/Schedule.vue")
+
 const routes = [
   {
     path: "/",
@@ -21,6 +23,11 @@ const routes = [
     name: "login",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/SignIn.vue")
+  },
+  {
+    path: "/schedule",
+    name: "schedule",
+    component: schedule
   },
   {
     path: "/main",
@@ -56,7 +63,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  mode: "history",
+  // mode: "history",
   base: process.env.BASE_URL,
   routes
 });

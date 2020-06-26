@@ -20,10 +20,19 @@ create table board(
     context varchar(2000) not null
 );
 
-create table fileupload(
+create table user(
     num int primary key auto_increment,
     id varchar(30) not null,
     name varchar(20) not null,
     age int not null,
     password varchar(100) not null
 );
+
+create table schedule(
+    schedule_num int primary key auto_increment,
+    user_id varchar(30) not null,
+    category varchar(50),
+    title varchar(500) not null,
+    context varchar(2000),
+    time timestamp
+)

@@ -21,6 +21,14 @@
             <v-list-item-title>board</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item link v-if="authorization">
+          <v-list-item-action>
+            <v-icon>info</v-icon>
+          </v-list-item-action>
+          <v-list-item-content @click="$router.push({name:'schedule'})">
+            <v-list-item-title>Info</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -88,7 +96,7 @@ import axios from 'axios';
   }
 })
 export default class App extends Vue {
-
+  drawer= false;
 }
 </script>
 
