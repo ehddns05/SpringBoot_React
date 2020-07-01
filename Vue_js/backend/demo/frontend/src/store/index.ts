@@ -65,6 +65,18 @@ export default new Vuex.Store({
         .catch(error => {
           console.log(error);
         });
+    },
+    getMySchedule(){
+      axios
+        .get("/schedule/myschedule")
+        .then(response => {
+          console.log(response.data);
+          this.schedules = response.data;
+          console.log(this.schedules);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 });

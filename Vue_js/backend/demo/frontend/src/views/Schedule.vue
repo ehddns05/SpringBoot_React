@@ -215,6 +215,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
 
+
 interface schedule {
   schedulenum: number,
   title: string,
@@ -255,23 +256,15 @@ export default class HelloWorld extends Vue {
   selectedOpen = false;
   events: any[] = [];
   colors: string[] = ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'];
-  names: string[] = ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'];
-  
-  created() {
-    console.log('created');
-    this.getMySchedule();
-  }
+  names: string[] = ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Conference', 'ETC'];
 
   mounted() {
     console.log('mounted');
-    // this.$refs.calendar.checkChange();s
     (this.$refs['calendar'] as any).checkChange();
   }
 
-
-
   viewDay ( date: any ): void{
-    this.focus = date;
+    this.focus = date.date;
     this.type = 'day';
   }
 
@@ -306,68 +299,56 @@ export default class HelloWorld extends Vue {
     events.nativeEvent.stopPropagation()
   }
 
-  updateRange ( time: any ) {
-    console.log('updateRange');
-    console.log(time)
-    // const events = [];
-    // const min = new Date(time.start.date+`T00:00:00`);
-    // const max = new Date(time.end.date+`T23:59:59`);
-    // const days = (max.getTime() - min.getTime()) / 86400000;
-    // const eventCount = this.rnd(days, days + 20)
-    // for (let i = 0; i < eventCount; i++) {
-    //   const allDay = this.rnd(0, 3) === 0
-    //   const firstTimestamp = this.rnd(min.getTime(), max.getTime())
-    //   const first = new Date(firstTimestamp - (firstTimestamp % 900000))
-    //   const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
-    //   const second = new Date(first.getTime() + secondTimestamp)
-    //   events.push({
-    //     name: this.names[this.rnd(0, this.names.length - 1)],
-    //     start: first,
-    //     end: second,
-    //     color: this.colors[this.rnd(0, this.colors.length - 1)],
-    //     timed: !allDay,
-    //   })
-    // }
-    // this.events = events
+  async updateRange ( time: any ) {
+
+    console.log(time);
+
+    //array initialize
+    this.schedules.length = 0;
+
+    // get Schedule from server
+    let calendar_data: any = await this.getMySchedule();
+    for (let index = 0; index < calendar_data.length; index++) {
+      this.schedules.push(calendar_data[index]);
+    }
+
     const events = [];
-    // const min = new Date(time.start.date+`T00:00:00`);
-    // const max = new Date(time.end.date+`T23:59:59`);
-    // const days = (max.getTime() - min.getTime()) / 86400000;
-    // const eventCount = this.rnd(days, days + 20)
+
     for (let i = 0; i < this.schedules.length; i++) {
+
+      // 0000-00-00T00:00:00 form
+      let arrengedTime = this.schedules[i].time.toString().substring(0, 19);
+
+      //start time
+      let start_time = new Date(arrengedTime);
+
+      // end time
+      let end_time = new Date(arrengedTime);
+      end_time.setHours(end_time.getHours()+1);
+
+      // connect coloer and category
       let j: number = 0;
-      // this.schedule[i].category.some((element: any) => {
-      //   if(element === this.names[j]){
-      //     return true;
-      //   }
-      //   j++;
-      // });
-      console.log(this.schedules[i].time);
+      this.names.some((element: string) => {
+        if(element === this.schedules[i].category.substring(2, this.schedules[i].category.length-2).split("\"")[0]){
+          return true;
+        }
+        j++;
+      });
+
       events.push({
         name: this.schedules[i].title,
-        start: this.schedules[i].time,
-        end: this.schedules[i].time,
+        start: start_time,
+        end: end_time,
         color: this.colors[j],
-        timed: 0
+        timed: 1,
+        details: this.schedules[i].context
       })
     }
     this.events = events
   }
 
-  rnd (a: number, b: number) {
-    return Math.floor((b - a + 1) * Math.random()) + a
-  }
-
   saveSchedule(){
     this.dialog = false;
-    console.log(this.time);
-    console.log(this.date);
-    console.log(this.category);
-    // let formData = new FormData();
-    // formData.set("title", this.title);
-    // formData.set("context", this.context);
-    // formData.set("category", this.category);
-    // formData.set("time", this.date + ' ' + this.time +':00');
     axios
       .post("/schedule/add", {
         "title" : this.title,
@@ -386,16 +367,18 @@ export default class HelloWorld extends Vue {
   }
 
   getMySchedule(){
-    axios
+    console.log("getMySchedule");
+    return new Promise(function(resolve) {
+      axios
       .get("/schedule/myschedule")
       .then(response => {
-        console.log(response.data);
-        this.schedules = response.data;
-        console.log(this.schedules);
+        resolve(response.data);
       })
       .catch(error => {
         console.log(error);
       });
+    });
+    
   }
 }
 </script>
