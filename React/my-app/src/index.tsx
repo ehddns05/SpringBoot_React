@@ -1,13 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+// import App from './App';
+import Work from './todolist/work';
 import * as serviceWorker from './serviceWorker';
+import { Provider } from 'mobx-react'; 
+import TodoStore from "./stores/TodoStore";
+
+const todostore = new TodoStore();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider todostore={todostore} >
+   <Work />
+  </Provider>,
   document.getElementById('root')
 );
 
